@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tier 1 — Memory Training</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header id="app-header">
+    <div class="brand">
+      <span class="logo">◆</span>
+      <div>
+        <h1>TIER 1</h1>
+        <span class="tagline">memory training</span>
+      </div>
+    </div>
+    <nav id="tabs">
+      <button class="tab active" data-view="drill">Encoding Drill</button>
+      <button class="tab" data-view="palace">Palace Builder</button>
+      <button class="tab" data-view="chain">Link Chain</button>
+      <button class="tab" data-view="exam">Tier 1 Exam</button>
+      <button class="tab" data-view="settings">Settings</button>
+    </nav>
+    <div id="profile-bar">
+      <span id="certified-chip" class="chip chip-cert"></span>
+      <label class="small">profile
+        <select id="profile-select"></select>
+      </label>
+      <button id="new-profile-btn" class="btn btn-ghost btn-sm" title="add profile">+</button>
+    </div>
+  </header>
+
+  <main id="app">
+    <section id="view-drill" class="view"></section>
+    <section id="view-palace" class="view hidden"></section>
+    <section id="view-chain" class="view hidden"></section>
+    <section id="view-exam" class="view hidden"></section>
+    <section id="view-settings" class="view hidden"></section>
+  </main>
+
+  <footer id="app-footer">
+    <span id="seed-chip" class="muted small" title="current session seed"></span>
+    <span class="muted small">all data stays in your browser · no server, no accounts</span>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

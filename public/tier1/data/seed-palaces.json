@@ -1,0 +1,137 @@
+[
+  {
+    "name": "home",
+    "loci": [
+      {
+        "name": "front door",
+        "item": "spare key"
+      },
+      {
+        "name": "hallway mirror",
+        "item": "umbrella stand"
+      },
+      {
+        "name": "kitchen counter",
+        "item": "grocery list"
+      },
+      {
+        "name": "sink window",
+        "item": "dish soap"
+      },
+      {
+        "name": "fridge",
+        "item": "leftover soup"
+      },
+      {
+        "name": "living room couch",
+        "item": "tv remote"
+      },
+      {
+        "name": "bookshelf",
+        "item": "library book"
+      },
+      {
+        "name": "staircase",
+        "item": "laundry basket"
+      },
+      {
+        "name": "bathroom sink",
+        "item": "toothbrush"
+      },
+      {
+        "name": "bedside table",
+        "item": "alarm clock"
+      }
+    ]
+  },
+  {
+    "name": "commute",
+    "loci": [
+      {
+        "name": "front gate",
+        "item": "bike lock"
+      },
+      {
+        "name": "bus stop bench",
+        "item": "timetable"
+      },
+      {
+        "name": "ticket machine",
+        "item": "change"
+      },
+      {
+        "name": "platform pillar",
+        "item": "poster"
+      },
+      {
+        "name": "station clock",
+        "item": "delayed again"
+      },
+      {
+        "name": "carriage door",
+        "item": "mind the gap"
+      },
+      {
+        "name": "seat 42",
+        "item": "dropped glove"
+      },
+      {
+        "name": "exit escalator",
+        "item": "busker"
+      },
+      {
+        "name": "coffee kiosk",
+        "item": "cup sleeve"
+      },
+      {
+        "name": "office lobby",
+        "item": "visitor badge"
+      }
+    ]
+  },
+  {
+    "name": "grocery store",
+    "loci": [
+      {
+        "name": "entrance baskets",
+        "item": "quarter for the cart"
+      },
+      {
+        "name": "produce bins",
+        "item": "avocados"
+      },
+      {
+        "name": "bakery aisle",
+        "item": "sourdough loaf"
+      },
+      {
+        "name": "dairy wall",
+        "item": "oat milk"
+      },
+      {
+        "name": "egg shelf",
+        "item": "dozen eggs"
+      },
+      {
+        "name": "freezer fog",
+        "item": "ice cream"
+      },
+      {
+        "name": "cereal aisle",
+        "item": "off-brand flakes"
+      },
+      {
+        "name": "spices corner",
+        "item": "smoked paprika"
+      },
+      {
+        "name": "checkout belt",
+        "item": "dividers"
+      },
+      {
+        "name": "parking lot gate",
+        "item": "receipt check"
+      }
+    ]
+  }
+]
