@@ -94,6 +94,7 @@ type OSState = {
 
 const DEFAULT_SIZES: Record<string, { w: number; h: number }> = {
   terminal: { w: 720, h: 440 },
+  browser: { w: 1000, h: 660 },
   files: { w: 880, h: 540 },
   editor: { w: 760, h: 520 },
   monitor: { w: 700, h: 520 },
@@ -129,6 +130,7 @@ export const useOS = create<OSState>()(
         const z = ((get().zTop - 10 + 1) % 680) + 10
         const defaultTitles: Record<string, string> = {
           terminal: 'Terminal',
+          browser: 'Browser',
           files: 'Files',
           editor: 'Editor',
           monitor: 'System Monitor',

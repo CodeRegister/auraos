@@ -35,7 +35,7 @@ const HELP = [
   '  open <path>       open path in Files (e.g. open .)',
   '  edit <file>       open file in the Editor',
   '  apps              list installed apps',
-  '  launch <app>      launch an app (files, terminal, editor, monitor, settings)',
+  '  launch <app>      launch an app (files, terminal, browser, editor, monitor, settings)',
   'Everything else runs in the real sandbox shell — ls, cd, cat, mkdir,',
   'rm, git, node, python, du, df, ps ... go wild.',
 ]

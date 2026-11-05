@@ -2,10 +2,11 @@
 
 import React from 'react'
 import {
-  SquareTerminal, Folder, FileText, Activity, Settings, Sparkles, type LucideIcon,
+  SquareTerminal, Folder, FileText, Activity, Settings, Sparkles, Globe, type LucideIcon,
 } from 'lucide-react'
 import type { WinState } from '@/lib/os/store'
 import { TerminalApp } from './apps/terminal'
+import { BrowserApp } from './apps/browser'
 import { FileManagerApp } from './apps/file-manager'
 import { EditorApp } from './apps/editor'
 import { MonitorApp } from './apps/monitor'
@@ -22,6 +23,7 @@ export type AppMeta = {
 export const APPS: AppMeta[] = [
   { id: 'files', name: 'Files', description: 'Browse and manage folders', icon: Folder },
   { id: 'terminal', name: 'Terminal', description: 'Real bash shell', icon: SquareTerminal },
+  { id: 'browser', name: 'Browser', description: 'Browse the real web', icon: Globe },
   { id: 'editor', name: 'Editor', description: 'View and edit files', icon: FileText },
   { id: 'monitor', name: 'System Monitor', description: 'CPU, memory, FPS', icon: Activity },
   { id: 'settings', name: 'Settings', description: 'Personalize your desktop', icon: Settings },
@@ -38,6 +40,8 @@ export function AppHost({ win }: { win: WinState }) {
   switch (win.appId) {
     case 'terminal':
       return <TerminalApp win={win} />
+    case 'browser':
+      return <BrowserApp win={win} />
     case 'files':
       return <FileManagerApp win={win} />
     case 'editor':

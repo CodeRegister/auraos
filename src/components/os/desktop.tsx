@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import {
   Sparkles, Power, Folder, SquareTerminal, Activity, Search,
-  FolderPlus, FilePlus2, Image as ImageIcon, ChevronRight,
+  FolderPlus, FilePlus2, Image as ImageIcon, ChevronRight, Globe,
 } from 'lucide-react'
 import { ACCENTS, WALLPAPERS, useOS } from '@/lib/os/store'
 import { fpsMeter } from '@/lib/os/fps'
@@ -183,6 +183,7 @@ function ContextMenu() {
     { label: 'New Folder', icon: FolderPlus, action: () => openWindow('files', { newFolder: true }) },
     { label: 'New File', icon: FilePlus2, action: () => openWindow('files', { newFile: true }) },
     { label: 'Open Terminal', icon: SquareTerminal, action: () => openWindow('terminal', {}) },
+    { label: 'Open Browser', icon: Globe, action: () => openWindow('browser', {}) },
     { label: 'Open Files', icon: Folder, action: () => openWindow('files', {}) },
     { label: 'Display Settings', icon: ImageIcon, action: () => openWindow('settings') },
   ]
