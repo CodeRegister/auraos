@@ -87,6 +87,23 @@ function boot() {
   wireHeader();
   renderProfileBar();
   showView('drill');
+  void firstRunSeeds();
+}
+
+// first run: give new profiles the three seed palaces so the Palace Builder
+// starts with something to quiz. Flagged on the profile so deleting them
+// later doesn't re-import on every visit.
+async function firstRunSeeds() {
+  const p = store.getActive();
+  if (p.palaces.length || p.seedPalacesAutoImported) return;
+  try {
+    const added = await palace.importSeedPalaces({ profile: p, save: store.save });
+    p.seedPalacesAutoImported = true;
+    store.save();
+    if (added) console.info('tier1: first run — imported ' + added + ' seed palaces');
+  } catch (err) {
+    // seed JSON unavailable (offline, file://): the button in Palace Builder still works
+  }
 }
 
 document.addEventListener('DOMContentLoaded', boot);
@@ -117,8 +134,11 @@ function renderSettings(el) {
         <h2>Data</h2>
         <p class="muted small">Everything lives in your browser's localStorage. Back it up or move it between browsers by hand.</p>
         <div class="row-end">
-          <button id="data-export" class="btn btn-ghost btn-sm">export all data</button>
-          <button id="data-import" class="btn btn-ghost btn-sm">import all data</button>
+          <button id="data-export" class="btn btn-ghost btn-sm">export as text</button>
+          <button id="data-download" class="btn btn-ghost btn-sm">download .json</button>
+          <button id="data-import" class="btn btn-ghost btn-sm">import from text</button>
+          <button id="data-import-file" class="btn btn-ghost btn-sm">import from file</button>
+          <input id="data-file" type="file" accept="application/json,.json" style="display:none">
           <button id="profile-reset" class="btn btn-ghost btn-sm">reset this profile</button>
         </div>
         <textarea id="data-json" rows="10" placeholder="export fills this box — paste a snapshot here to import it"></textarea>
@@ -145,6 +165,30 @@ function renderSettings(el) {
   el.querySelector('#data-export').onclick = () => {
     el.querySelector('#data-json').value = store.exportAll();
     el.querySelector('#data-status').textContent = 'exported — copy it somewhere safe.';
+  };
+  el.querySelector('#data-download').onclick = () => {
+    const blob = new Blob([store.exportAll()], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'tier1-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    el.querySelector('#data-status').textContent = 'backup file downloaded.';
+  };
+  el.querySelector('#data-import-file').onclick = () => el.querySelector('#data-file').click();
+  el.querySelector('#data-file').onchange = async (e) => {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    const text = await f.text();
+    const ok = store.importAll(text);
+    el.querySelector('#data-status').textContent = ok ? 'imported from file.' : 'import failed — is that a Tier 1 backup?';
+    if (ok) {
+      renderProfileBar();
+      showView(current);
+    }
+    e.target.value = '';
   };
   el.querySelector('#data-import').onclick = () => {
     const ok = store.importAll(el.querySelector('#data-json').value);

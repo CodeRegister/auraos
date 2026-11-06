@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { Brain, RotateCw, Globe } from 'lucide-react'
 import { useOS, type WinState } from '@/lib/os/store'
+import { useToast } from '@/hooks/use-toast'
 
 /**
  * Tier 1 — Memory Training (github.com/CodeRegister/tier-1), vendored as an
@@ -13,12 +14,27 @@ import { useOS, type WinState } from '@/lib/os/store'
 export function Tier1App({ win }: { win: WinState }) {
   const setTitle = useOS((s) => s.setTitle)
   const openWindow = useOS((s) => s.openWindow)
+  const { toast } = useToast()
   const [loading, setLoading] = useState(true)
   const [reloadKey, setReloadKey] = useState(0)
 
   useEffect(() => {
     setTitle(win.id, 'Tier 1 · Memory Training')
   }, [win.id, setTitle])
+
+  // the applet announces certification via postMessage (js/exam.js)
+  useEffect(() => {
+    const onMsg = (e: MessageEvent) => {
+      const d = e.data as { type?: string; profile?: string; score?: number; total?: number } | null
+      if (!d || typeof d !== 'object' || d.type !== 'tier1-certified') return
+      toast({
+        title: '◆ Tier 1 certified',
+        description: `Recall ${d.score ?? 20}/${d.total ?? 20} — certification complete for “${d.profile ?? 'me'}”.`,
+      })
+    }
+    window.addEventListener('message', onMsg)
+    return () => window.removeEventListener('message', onMsg)
+  }, [toast])
 
   return (
     <div className="h-full w-full flex flex-col bg-[#0d1117] text-zinc-200">

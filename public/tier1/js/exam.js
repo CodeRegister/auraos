@@ -244,6 +244,13 @@ function paintRetest(el, ctx, attempt, repaint) {
 function paintVerdict(el, ctx, attempt, results, repaint) {
   const chip = document.getElementById('certified-chip');
   if (chip && attempt.passed) chip.textContent = '◆ Tier 1 certified';
+  if (attempt.passed) {
+    // let the embedding shell celebrate too (AuraOS applet → desktop toast);
+    // harmless no-op when standalone.
+    try {
+      parent.postMessage({ type: 'tier1-certified', profile: ctx.profile.name, score: attempt.retestScore, total: attempt.words.length }, '*');
+    } catch (err) { /* not embedded */ }
+  }
   el.innerHTML = `
     <div class="card ${attempt.passed ? 'pass' : 'fail'}">
       <h2>${attempt.passed ? 'TIER 1 CERTIFIED' : 'Not this time'}</h2>

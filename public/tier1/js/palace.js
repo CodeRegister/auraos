@@ -14,6 +14,21 @@ async function loadSeedPalaces() {
   return seedPalacesCache;
 }
 
+// shared importer (button + first-run auto-import): adds every seed palace
+// whose name isn't taken yet, returns how many were added.
+export async function importSeedPalaces(ctx) {
+  const seeds = await loadSeedPalaces();
+  const p = ctx.profile;
+  let added = 0;
+  for (const s of seeds) {
+    if (p.palaces.some(pl => pl.name === s.name)) continue;
+    p.palaces.push({ id: uid(), name: s.name, loci: s.loci.map(l => ({ id: uid(), name: l.name, item: l.item || '' })), createdAt: Date.now(), lastUsed: null, stats: { attempts: 0, correct: 0, latencySum: 0 } });
+    added++;
+  }
+  if (added) ctx.save();
+  return added;
+}
+
 // #region list view
 
 let editor = null;   // {id, name, loci: [{id, name, item}]}
@@ -63,12 +78,7 @@ function paintList(el, ctx, repaint) {
     repaint();
   };
   el.querySelector('#import-seeds').onclick = async () => {
-    const seeds = await loadSeedPalaces();
-    for (const s of seeds) {
-      if (p.palaces.some(pl => pl.name === s.name)) continue;
-      p.palaces.push({ id: uid(), name: s.name, loci: s.loci.map(l => ({ id: uid(), name: l.name, item: l.item || '' })), createdAt: Date.now(), lastUsed: null, stats: { attempts: 0, correct: 0, latencySum: 0 } });
-    }
-    ctx.save();
+    await importSeedPalaces(ctx);
     repaint();
   };
   el.querySelectorAll('[data-edit]').forEach(b => {
